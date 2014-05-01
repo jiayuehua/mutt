@@ -1,0 +1,284 @@
+## cp /etc/mutt/Muttrc ~/.muttrc
+## nano -w .muttrc
+#set pager_context=1
+#set pager_index_lines=6　　　　　　　　 #在页中显示小型索引
+#set menu_scroll
+#set pgp_verify_sig=no　　　　　　　　　 #在页中不显示 pgp
+#set status_on_top　　　　　　　　　　　 #在顶部显示状态行
+#set sort=threads　　　　　　　　　　　　#在索引中将消息按线程排列
+#set status_format=" %r %b %f %n　　　Del %d　　　Msgs %m %l %> (%P)"
+#set pager_format="%-10.10i %[!%a %b %d %R]"
+#set date_format="!%H:%M %a %d %b　　 "
+#set index_format="%4C %Z %[%b%d] %-15.15F %s"
+#set folder_format="%2C %t %8s %d %N %f"
+##set sendmail="/usr/bin/nbsmtp -d isp.net -h smtp.isp.net -f yourname@isp.net"
+##set from="default-mailaddress"　　　　 #设置您的发送邮箱地址
+##set realname="myname"
+#set record="$HOME/MuttMail/sent"　　　　#发出的邮件储存在这
+#set delete=yes　　　　　　　　　　　　　#删除时不提示
+#set include=yes　　　　　　　　#回复时引用原文
+#set fast_reply=yes　　　　　　#回复时不询问回复地址
+#set beep=no　　　　　　　　#无声
+#set markers=no　　　　　　　　#自动换行时不显示 +
+#set confirmappend=no　　　　　　#save to 时不提示，=keep
+#set to_chars=" +TCF"　　　　　　　　　　#邮件列表无 L
+#set folder = $HOME/MuttMail
+#mailboxes =gentoo-user
+#mailboxes =gentoo-dev
+#mailboxes =gentoo-announce
+#mailboxes =gentoo
+#mailboxes =freshmeat
+#mailboxes =duplicates
+#mailboxes =default
+#mailboxes =sent
+#mailboxes =friends
+#mailboxes =junk
+#mailboxes =spam
+#mailboxes =keep
+#save-hook .* =keep　　　　　　　　　　　#默认保存(s)邮件的 mbox 为 =keep
+##subscribe gentoo-user gentoo-dev　　　　#订购这些列表
+#bind pager h display-toggle-weed　　#使用 h 键切换邮件头信息显示
+## 模拟旧式网址菜单
+macro index \cb |urlview\n
+macro pager \cb |urlview\n
+##使用 G 键运行 fetchmail
+#macro index G "!fetchmail -a -m 'procmail -d %T'\r"
+#macro pager G "!fetchmail -a -m 'procmail -d %T'\r"
+##用于编辑 .muttrc 文件并载入...不必重新运行
+#macro generic ,sm ":source $HOME/.muttrc\r"
+#macro generic \cj "!rxvt -bg wheat -e joe $HOME/.muttrc\r"
+## 显示邮件时，除去默认邮件头列表中的域
+## 忽略所有域然后反选您想看到的
+#ignore *
+#unignore　Date To From: Subject X-Mailer Organization User-Agent
+#hdr_order Date From To Subject X-Mailer User-Agent Organization
+###您的 Mutt 一定需要一些颜色
+###这里提供了四级的引用文本
+###这些设置覆盖了/etc/mutt/Muttrc 中的系统设置
+##color quoted green　default
+#color quoted1 magenta blue
+##color quoted2 yellow default
+##color quoted3 red default
+##color signature cyan cyan
+##这个色彩设置拷贝自 /etc/mutt/Muttrc.color
+##如果希望看到 /etc/mutt/Muttrc 中的默认色彩，可将它注释掉
+## Je vois la vie en rose :-)
+#color　　hdrdefault　　brightcyan　　blue
+#color 　　header　　　　brightwhite　　blue "^from:"
+#color　 header　　　　　brightwhite　　　　blue　 "^subject:"
+#color　 quoted　　　　　brightgreen　　 blue
+#color　 signature　　　 brightwhite　　blue
+#color 　 indicator　　　 blue　　　　　　green
+#color　 error　　　　　 red　　　　　　 black
+#mono 　　error　　　　　 bold
+#color　 status　　　　　black cyan
+#mono　　status　　　　 bold
+#color　 tree　　　　　　yellow　 　　blue
+#color　 tilde　　　　　 brightmagenta　 blue
+#color　　body　　brightwhite　　　　blue　　 "[-a-z_0-9.]+@[-a-z_0-9.]+"
+#mono　　body　　bold　　　　　　　　　　 "[-a-z_0-9.]+@[-a-z_0-9.]+"
+#color　 body　　　　　　brightyellow　　black　 "^Good signature"
+#mono　　body　　　　　　bold　　　　　　　　　　"^Good signature"
+#color 　 body　　　　　　brightwhite　　 red　　 "^Bad signature from.*"
+#mono　　body　　　　　　bold　　　　　　　　　　"^Bad signature from.*"
+#color　 normal　　　　　white　　　　blue
+#color　　message　　　　green　　black
+#color　　 attachment　　brightgreen　　blue
+# jiayuehua
+ 
+macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+macro compose A "<attach-message>?<toggle-mailboxes>" "attach message(s) to this message"
+#编辑器 直接在 Mutt 的终端里使用非图形界面的 Emacs (emacs -nw)
+set editor="vim"
+
+#设置邮件发送程序
+set sendmail="/usr/local/bin/esmtp"
+
+#建立信箱
+#set folder="~/Mail"
+#set folder="~/Mail/"
+##set mbox="~/Mail/Mailbox"
+#set mbox="~/Mail/mymail/"
+#set mbox_type=maildir
+#set header_cache=~/.hcache
+#set maildir_header_cache_verify=no
+#set spoolfile="~/Mail/myMailbox/"
+#set postponed="~/Mail/mypostponed/"
+#set record="~/Mail/mysent/"
+set mbox_type=Maildir
+
+#set spoolfile="~/Maildir/"
+set spoolfile="~/Maildir/inbox1"
+# set spoolfile="~/Maildir/.inbox/" #spoolfile
+set folder="~/Maildir/"
+set mask="!^\\.[^.]"
+set record="+.Sent"
+set postponed="+.Drafts"
+set mbox="~/Maildir/"
+mailboxes ! + `\
+ for file in ~/Maildir/.*; do \
+   box=$(basename "$file"); \
+   if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
+       -a ! "$box" = '.subscriptions' ]; then \
+     echo -n "\"+$box\" "; \
+   fi; \
+ done`
+
+# macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+# macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+# macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+# macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+#set mbox_type=Maildir
+#set folder="~/Mail2"
+##set mbox="~/Maildir/Mailbox"
+#set mbox="~/Mail"
+##set header_cache=~/.hcache
+##set maildir_header_cache_verify=no
+#set spoolfile="~/Mail/Mailbox"
+#set postponed="+.postponed"
+#set record="+.sent"
+#mailboxes `echo -n "+ "; find ~/Maildir -maxdepth 1 -type d -name ".*" -printf "+'%f' "`
+# 让mutt监视下面几个邮箱，并随时报告新邮件
+#mailboxes = mypostponed/
+#mailboxes = mysent/
+#mailboxes = mymail/
+
+#mailboxes "=USTCstudent"
+#mailboxes "=USTCteacher"
+#mailboxes "=ustcbbs
+#mailboxes "=Gmail"
+
+set check_new = yes
+#set timeout = 600
+
+#set alternates="gracedancer@163.com" 
+#这是一个格式字符串，用来控制你的index的列表显示。它的缺省定义是
+
+set to_chars="+TCFL"　　　　　　　　　　#邮件列表无 L
+set index_format="%4C %Z %{%b %d} %-15.15L (%4l) %s"
+#指定你有那些信箱文件。当你按 "c" 切换信箱时，再按 Tab 键，这些信箱就可供你选择
+#mailboxes mymail/ mypostponed/ mysent/
+#mailboxes Mailbox sent 
+#这是一个 bool 型变量。它表明你在回信时引用原文是否加入原文的邮件头。
+set header=no 
+#可以设置为 yes, no, ask-yes, 或者 ask-no. 这是说，当你按q退出时，是否提示你(ask-yes,ask-no)，
+#还是直接就退出了(yes)，还是根本不理你(no)。
+set quit=ask-yes
+#html类型的附件是允许直接通过 .mailcap 浏览的？
+#doc类型的附件通过wvware转成html 浏览
+auto_view text/html application/msword application/vnd.ms-excel application/vnd.ms-powerpoint application/pdf application/ms-rtf application/rtf application/ms-tnef
+
+#这也是一个提示性变量。它是确定当你退出时，是否提示你把信件从 spool 移动到的 mbox 文件。
+set move=no
+#当 Mutt 用 thread 方式显示时，是否用纯 ascii 表示树状列表。
+set ascii_chars=yes
+#回信时是否包含原文。
+set include
+#回信的引文之前插入那个符号？
+set indent_str="> "
+#设置你自己的邮件头。
+my_hdr From: gracedancer@163.com
+my_hdr To: gracedancer@163.com
+#打分
+#新信件+4分,主题包含“通知”的+2，主题包含 “Circulation” +3, 已经标记删除的 -5，上次没有读的 +1，包含 “believe”的 -10(垃圾广告！)。
+score "~N" +4
+score "~s 通知" +2
+score "~s Circulation" +3
+score "~D" -5
+score "~O" +1
+score "~s believe" -10
+#排序方式。
+set sort=score
+#当用 thread 排序方式时，我们对各个 thread 的相对排序顺序。
+set sort_aux=date
+#如果翻到最后，再按往下翻也不会翻到下一封信件
+set pager_stop
+#如果设置，当你按 "r" 回信时，就不会再提示你输入回信地址和主题，直接进入编辑模式。
+set fast_reply
+#当你按 "t" 或者 "D" 之类的标记操作时，是否自动把光标移动到下一封信件。
+set resolve=yes
+#地址簿
+source ~/.mutt.alias
+#当你在 index 里按 "a" 为来信者取别名时，使用哪一个别名文件保存这个别名。
+#set alias_file=/home/owner/.mutt.alias
+set alias_file=/root/.mutt.alias
+#你发出的邮件保存到那个信箱文件？比如可以像我这样每个月发出的信件放在不同的文件里。
+#set record="~/Mail/=sent-mail-`date +%Y-%m`"
+#你的终端支持哪一种编码的显示？这个必须和你的终端编码一样。推荐用utf8
+set charset="utf8"
+#send_charset
+set send_charset="us-ascii:iso-8859-1:gb2312:utf-8"
+#外部程序退出时，是否要求用户按一个键才返回。这在察看某些shell命令输出时是比要的，
+#否则它们一下就消失了。
+set wait_key=yes
+#当你要把信件存到另一个信箱，而这个信箱已经存在时，是否提示附加？
+set noconfirmappend
+#是否把邮件头也放在编辑器里可以修改？
+set edit_headers=no
+#当你在用 pager 看信件时，在 index 留出多少行显示邮件列表？
+set pager_index_lines=4
+#告诉 Mutt 你已经订阅了那些邮件列表(mailing-list).
+#subscribe fvwm@fvwm.org
+
+#mutt显示日期为中文
+#set locale="zh_CN"
+set locale="zh_CN.UTF-8"
+#有些没有设置字符编码时
+charset-hook ^us-ascii$ gb2312
+#Chinaren 等服务器发出来的信件使用了 quoted-printable 的 subject，
+#而且设置编码为 "iso8859-1"，这显然是错误的。
+#对付这个错误的办法是把 iso-8859-1 变成 gb2312 的别名
+charset-hook ^iso-8859-1$ gb2312
+# evolution 发过来的 subject 为 utf-8 编码的邮件标题乱码！
+#那就把不是 utf-8 的编码都映射到 gb2312
+charset-hook !utf-8 gb2312
+
+# mutt进行pop3收信，当然之前要查看$ mutt -v 编辑情况的确编辑了pop3了。
+# 以后进入mutt按G就可以收信了。
+#set pop_user=xxx@mail.ustc.edu.cn
+#set pop_pass="xxxxxx"
+#set pop_host=202.38.64.8
+#现在不用mutt直接收信了。
+
+#把mutt发送的from域作为sendmail发送邮件的sender(否则会用user@localdomian)
+set envelope_from=yes
+lists mutt-announce-request@mutt.org
+subscribe mutt-announce-request@mutt.org
+#macro index G "!getmail\n" "Invoke getmail"
+#macro pager G "!getmail\n" "Invoke getmail"
+macro index G "!fetchmail -a -m 'procmail -d %T'\r"
+macro pager G "!fetchmail -a -m 'procmail -d %T'\r"
+##############    TOFU          #########################################################################################
+#set display_filter="t-prot -cemt -M=mutt"
+## $Id: muttrc.t-prot,v 1.11 2010/02/19 16:21:14 jochen Exp $
+
+## This all works only if you have mutt-1.3.12 or newer
+## or if you use something like the pagerfilter patch
+## (http://www.escape.de/users/tolot/mutt/).
+#set display_filter='t-prot -aelmtS -c --bigq -Mmutt --spass -L$HOME/.mutt/mlfooters -A$HOME/.mutt/adfooters'
+
+## toggle TOFU protection with ESC-0 and ESC-1
+#macro generic \e0 ":unset display_filter\n" "Turn TOFU protection off"
+#macro generic \e1 ":set display_filter='t-prot -aclmtS -c --bigq -Mmutt --spass -L$HOME/.mutt/mlfooters -A$HOME/.mutt/adfooters'\n" "Turn TOFU protection on"
+
+## same in pager mode - ugly but what the hell...
+#macro pager \e0 ":unset display_filter; exec exit\n:exec display-message\n" "Turn TOFU protection off"
+#macro pager \e1 ":set display_filter='t-prot -aelmtS -c --bigq -Mmutt --spass -L$HOME/.mutt/mlfooters -A$HOME/.mutt/adfooters'; exec exit\n:exec display-message\n" "Turn TOFU protection on"
+
+## highlight TOFU protection:
+#color body	brightmagenta	black	"^\\[---.*"
+#color body	green			black	"^#v[-+]"
+#################################################
+#########   auto-view           #################
+auto_view application/x-gunzip application/x-tar-gz
+##################### gpg ##################### 
+#source ~/.mutt.gpg.rc
+
+
+
+

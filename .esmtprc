@@ -1,0 +1,7 @@
+identity gracedancer@163.com
+hostname=smtp.163.com:25
+username="gracedancer"
+password="*******"
+mda="/usr/bin/procmail -d %T"
+starttls enabled
+default

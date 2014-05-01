@@ -1,0 +1,5 @@
+PATH=/bin:/sbin:/usr/bin:/usr/sbin
+SHELL=/bin/bash
+MAILDIR=/root/Maildir/
+DEFAULT=$MAILDIR/inbox1
+
